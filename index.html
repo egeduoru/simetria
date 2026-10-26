@@ -1,0 +1,783 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <script src="https://telegram.org/js/telegram-web-app.js?64" defer></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f5f2">
+  <meta name="description" content="Интерактивная мастерская стереометрии: вращайте многогранники, добавляйте точки и стройте сечения.">
+  <title>Сечение — стереометрия наглядно</title>
+  <style>
+:root{color-scheme:light;--bg:#f5f5f2;--paper:#fff;--ink:#242839;--muted:#888a98;--line:#e8e8e8;--purple:#6557d9;--purple-light:#f0eefb;--coral:#ef816d;--font:Inter,"Segoe UI",Arial,sans-serif}*{box-sizing:border-box}body{margin:0;font-family:var(--font);font-size:13px;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased}button,input,select{font:inherit}button,a,input,select{-webkit-tap-highlight-color:transparent}button{cursor:pointer;border:0;background:none;color:inherit}button:disabled{opacity:.4;cursor:not-allowed}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,canvas:focus-visible{outline:3px solid #a99ff0;outline-offset:3px}button{transition:background .16s,color .16s,border-color .16s,box-shadow .16s}button svg,svg.inline-icon{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}svg{display:block}h1,h2,h3,p{margin:0}h2{font-weight:650}h3{font-weight:600}input,select{max-width:100%}[hidden]{display:none!important}.svg-library{position:absolute;width:0;height:0;overflow:hidden}.app-header{height:88px;display:flex;align-items:center;gap:34px;padding:0 30px;background:#fff;border-bottom:1px solid var(--line)}.brand{display:flex;gap:12px;align-items:center;text-decoration:none;color:inherit;flex-shrink:0}.brand-mark{width:42px;height:42px;display:grid;place-items:center;background:var(--purple);border-radius:12px;position:relative;overflow:hidden}.brand-mark svg{width:30px;height:30px;stroke:#fff;fill:none;stroke-width:1.2;position:relative;z-index:1}.brand-mark span{position:absolute;inset:20px -5px 10px;background:#bcb1fb;transform:rotate(-20deg);opacity:.55}.brand-copy{display:flex;flex-direction:column;gap:5px}.brand-copy strong{font-size:25px;font-weight:720;line-height:1;letter-spacing:-.8px}.brand-dot{color:var(--purple)}.brand-copy small{font-size:8px;font-weight:650;letter-spacing:1.4px;color:#8a8c99}.header-caption{display:flex;gap:7px;align-items:center;color:#8b8d99;font-size:11px;margin-top:1px;white-space:nowrap}.status-dot{width:5px;height:5px;border-radius:50%;background:#a3afa2}.header-actions{display:flex;align-items:center;gap:7px;margin-left:auto}.icon-button{height:36px;width:36px;display:grid;place-items:center;color:#747686;border-radius:8px}.icon-button:hover{background:#f1f0f5;color:var(--purple)}.header-divider{height:20px;width:1px;background:var(--line);margin:0 7px}.quiet-button,.primary-button,.secondary-button,.danger-button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:36px;padding:0 12px;border-radius:7px;font-weight:550;font-size:12px}.quiet-button{color:#626575}.quiet-button:hover{background:#f2f1f7;color:var(--purple)}.primary-button{background:var(--purple);color:#fff;box-shadow:0 3px 6px #6557d918}.primary-button:hover{background:#5749c6}.secondary-button{background:var(--purple-light);color:var(--purple);border:1px solid #e3dff6}.secondary-button:hover{background:#e7e2fc}.lesson-button{margin-left:12px;height:38px;padding:0 15px}.workspace{display:grid;grid-template-columns:214px minmax(360px,1fr) 302px;min-height:calc(100vh - 88px);max-width:2000px;margin:0 auto}.solid-sidebar{display:flex;flex-direction:column;border-right:1px solid var(--line);padding:29px 14px 18px 20px;background:#fafaf8}.sidebar-heading{padding:0 10px 20px}.eyebrow{font-size:8px;letter-spacing:1.5px;line-height:1.4;font-weight:650;color:#9495a0}.sidebar-heading h2{font-size:20px;letter-spacing:-.4px;margin-top:9px}.sidebar-heading p{font-size:11px;margin-top:6px;color:var(--muted)}.solid-list{display:flex;flex-direction:column;gap:6px}.solid-card{display:flex;align-items:center;gap:9px;position:relative;padding:9px 6px;width:100%;border:1px solid transparent;border-radius:10px;text-align:left;min-height:74px}.solid-card:hover{background:#f0f0f5}.solid-card.active{border-color:#dcd6f7;background:#f0eefb;box-shadow:0 2px 3px #6557d905}.solid-card>span:not(.selection-dot){font-size:10.5px;font-weight:600;line-height:1.4;letter-spacing:-.1px}.solid-card small{display:block;color:#9896aa;font-size:8.5px;font-weight:400;margin-top:5px;letter-spacing:0}.solid-diagram{width:47px;height:45px;flex-shrink:0;stroke:#8d8e9e;fill:none;stroke-width:1.2;stroke-linejoin:round;stroke-linecap:round;overflow:visible}.solid-fill{fill:#e9e9f0;stroke:none;fill-opacity:.38}.hidden-edge{stroke-dasharray:3 3;opacity:.6}.active .solid-diagram{stroke:var(--purple)}.active .solid-fill{fill:#c8bdf9;fill-opacity:.3}.active>span{color:#5044b1}.selection-dot{position:absolute;right:9px;top:10px;width:4px;height:4px;border-radius:50%;background:transparent}.active .selection-dot{background:var(--purple)}.sidebar-bottom{margin-top:auto;padding:26px 8px 0}.tip-card{border-top:1px solid var(--line);padding-top:22px}.tip-number{font-size:9px;color:#aaa5c0;letter-spacing:1.6px}.tip-card p{font-size:11px;line-height:1.8;color:#92909f;margin-top:10px}.tip-card strong{font-weight:400;color:#626170}.reset-scene{font-size:11px;margin-top:21px;margin-left:-8px;color:#91909e;gap:7px}.reset-scene svg{width:15px;height:15px}.stage-column{display:flex;flex-direction:column;min-width:0;padding:30px 27px 0}.stage-heading{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-bottom:24px}.stage-heading .eyebrow{font-size:8px;letter-spacing:1.5px;color:#9999a3}.stage-heading h1{font-size:29px;font-weight:600;letter-spacing:-.8px;line-height:1.25;margin-top:9px}.stage-heading p{font-size:10px;color:#9695a2;margin-top:7px;letter-spacing:.15px}.mode-badge{border:1px solid #e3e0ee;color:#8f87ae;background:#f9f8fc;border-radius:20px;white-space:nowrap;font-size:8px;padding:7px 10px;margin-top:10px}.mode-badge>span{display:inline-block;width:4px;height:4px;background:#9882d4;border-radius:50%;margin-right:5px;vertical-align:middle}.viewport{position:relative;flex:1;min-height:500px;background:#fff;border:1px solid #e3e3e7;border-radius:14px;overflow:hidden;box-shadow:0 4px 13px #33334b03}#scene{display:block;width:100%;height:100%;position:absolute;inset:0;touch-action:none;cursor:grab}#scene:active{cursor:grabbing}.viewport-topline{position:absolute;top:21px;left:23px;right:22px;display:flex;justify-content:space-between;pointer-events:none;align-items:center}.scene-label{font-size:8px;letter-spacing:1.8px;color:#9b9ba7;font-weight:600;display:flex;gap:7px;align-items:center}.scene-label>span{width:5px;height:5px;border:1px solid #aaa3bf;border-radius:50%}.scene-legend{display:flex;align-items:center;gap:6px;font-size:9px;color:#aaa0a1}.scene-legend i{width:7px;height:7px;border-radius:2px;background:var(--coral);opacity:.8}.canvas-tools,.camera-tools{position:absolute;display:flex;align-items:center;gap:3px;background:#fff;border:1px solid #e7e5ed;border-radius:9px;padding:4px;box-shadow:0 3px 10px #28263c08}.canvas-tools{top:59px;left:16px;flex-direction:column}.camera-tools{right:17px;bottom:55px;flex-direction:column}.tool-button{display:flex;align-items:center;justify-content:center;width:33px;height:33px;border-radius:6px;color:#8b8b9a}.tool-button svg{width:17px;height:17px;stroke-width:1.5}.tool-button:hover{background:#f4f2fa;color:var(--purple)}.tool-button.active{background:var(--purple-light);color:var(--purple)}.tool-divider{width:20px;height:1px;background:#eceaf2;margin:3px 0}.viewport-bottomline{position:absolute;left:23px;right:23px;bottom:21px;display:flex;justify-content:space-between;gap:10px;align-items:center;pointer-events:none}#tool-hint{color:#a09da9;font-size:9px;display:flex;align-items:center;gap:7px;line-height:1.5;max-width:85%}#tool-hint svg{width:13px;height:17px;stroke:#aaa6b7;fill:none;stroke-width:1.4}.axis-caption{font-family:Georgia,serif;font-style:italic;font-size:12px;color:#a29cab;letter-spacing:2px}.stage-footer{min-height:53px;padding:15px 1px 14px;display:flex;gap:20px;justify-content:space-between;align-items:flex-start;font-size:9px;color:#9696a3;line-height:1.6}.footer-note{white-space:nowrap;color:#aaa9b0;font-size:8px}.inspector{display:flex;flex-direction:column;background:#fff;border-left:1px solid var(--line);padding:30px 22px 0;min-width:0}.inspector-heading h2{margin-top:9px;font-size:17px;letter-spacing:-.35px}.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:#f4f4f7;padding:4px;border-radius:8px;margin:24px 0 24px}.tab{height:31px;font-size:11px;color:#91909f;border-radius:5px}.tab:hover{color:var(--purple)}.tab.active,.tab[aria-selected=true]{background:#fff;color:var(--purple);font-weight:600;box-shadow:0 1px 4px #33334b0c}.inspector-panel{padding-bottom:18px}.field-label{display:block;font-size:10px;font-weight:600;margin-bottom:9px;color:#6d6b7c}select,input:not([type=range]):not([type=checkbox]):not([type=file]){width:100%;border:1px solid #e5e3ed;border-radius:6px;min-height:35px;padding:8px 10px;color:#615e73;background:#fff;font-size:11px}select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23938caa' stroke-width='1.6'%3E%3Cpath d='m7 10 5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-size:17px;background-position:right 9px center;padding-right:30px;cursor:pointer}.field-description{font-size:10px;line-height:1.7;color:#a09baa;margin:11px 0}.plane-picks{display:flex;gap:7px;margin:14px 0;min-height:32px}.point-chip{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-width:35px;height:32px;padding:0 11px;border:1px solid #e5dff7;background:#f7f4ff;color:var(--purple);border-radius:6px;font-family:Georgia,serif;font-style:italic;font-size:14px}.plane-picks button{display:inline-flex;align-items:center;justify-content:center;min-width:35px;height:32px;padding:0 10px;border:1px solid #e5dff7;background:#f7f4ff;color:var(--purple);border-radius:6px}.full-width{width:100%;font-size:10px;min-height:35px;gap:6px}.full-width svg{width:15px;height:15px}.section-divider{height:1px;background:#efedf3;margin:21px 0}.range-heading{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:#6d6b7c;margin:14px 0 12px;gap:10px}.range-heading label{font-weight:550}.range-heading output{font-size:10px;color:var(--purple);font-variant-numeric:tabular-nums;background:#f6f4fc;border-radius:4px;padding:3px 5px;min-width:33px;text-align:center}input[type=range]{display:block;width:100%;height:4px;margin:15px 0 13px;accent-color:var(--purple);cursor:pointer;-webkit-appearance:none;appearance:none;background:#e9e6f2;border-radius:4px}input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border:3px solid #fff;border-radius:50%;background:var(--purple);box-shadow:0 0 0 1px #dfdaef,0 1px 3px #756b9b30}input[type=range]::-moz-range-thumb{width:8px;height:8px;border:3px solid #fff;border-radius:50%;background:var(--purple);box-shadow:0 0 0 1px #dfdaef}.range-endpoints{display:flex;align-items:center;justify-content:space-between;font-size:8px;color:#aaa5b6;margin-top:0}.text-button{padding:0;font-size:9px;color:#9c95b1;text-decoration:none}.text-button:hover{color:var(--purple);text-decoration:underline}.section-result{margin-top:21px;background:#fbf8f6;border:1px solid #f1e8e4;border-radius:9px;overflow:hidden;padding:15px 14px 15px}.result-heading{display:flex;justify-content:space-between;align-items:center}.result-heading .eyebrow{font-size:7px;letter-spacing:1px;color:#b0a39e}.coral-dot{width:5px;height:5px;background:var(--coral);border-radius:50%}#section-preview{display:block;width:100%;height:110px;margin:0 auto;object-fit:contain}.section-result h3{text-align:center;font-size:14px;color:#685757;font-weight:550;letter-spacing:-.2px}.section-result p{text-align:center;font-size:8px;color:#b1a4a0;margin-top:5px}.section-message{font-size:9px;line-height:1.6;color:#a69fac;margin:11px 2px 0}.preset-block{margin-top:22px}.presets{display:flex;flex-direction:column;gap:3px}.presets button{display:flex;justify-content:space-between;align-items:center;text-align:left;min-height:30px;font-size:10px;color:#8c879b;padding:0 0 0 8px;border-radius:5px;border:1px solid transparent}.presets button:hover{color:var(--purple);background:#f6f4fc;border-color:#ede8fa}.presets button.active{color:var(--purple);background:#f4f1fc}.presets button svg{width:12px;height:12px;color:#bcb5ce}.toggle-row{display:flex;align-items:center;gap:10px;position:relative;min-height:32px;font-size:10px;color:#8d879b;cursor:pointer}.toggle-row>span:first-child{margin-right:auto}.toggle-row input{position:absolute;right:0;opacity:0;width:29px;height:17px;margin:0}.toggle-track{width:28px;height:16px;background:#e7e4ed;border-radius:10px;position:relative;pointer-events:none;transition:background .2s}.toggle-track:after{content:"";position:absolute;left:3px;top:3px;width:10px;height:10px;background:#fff;border-radius:50%;transition:transform .2s;box-shadow:0 1px 2px #24283915}.toggle-row input:checked+.toggle-track{background:#8477dd}.toggle-row input:checked+.toggle-track:after{transform:translateX(12px)}.toggle-row input:focus-visible+.toggle-track{outline:3px solid #b6aaef;outline-offset:3px}.inspector-footer{display:flex;align-items:center;justify-content:center;gap:6px;min-height:43px;margin-top:auto;border-top:1px solid #f1eff5;color:#b5afc0;font-size:8px;letter-spacing:.25px}.inspector-footer svg{width:12px;height:12px;stroke:currentColor;stroke-width:1.3;fill:none}.panel-subheading{display:flex;align-items:center;justify-content:space-between;gap:10px}.panel-subheading h3,.form-title{font-size:12px;font-weight:550;color:#686276}.points-list{display:flex;flex-direction:column;gap:5px;margin:15px 0}.points-list:empty:after{content:"Пока нет дополнительных точек";font-size:10px;color:#aaa4b5;padding:12px 0}.points-list button{display:flex;align-items:center;gap:9px;min-height:35px;padding:8px 10px;border:1px solid #ebe6f2;border-radius:6px;background:#faf9fc;font-size:10px;text-align:left}.points-list button.active{background:#efebfb;border-color:#cfc5f2;color:var(--purple)}.point-list-item,.point-row{display:flex;align-items:center;gap:8px;padding:9px 10px;border:1px solid #ebe6f2;border-radius:6px;background:#faf9fc;font-size:10px;cursor:pointer}.point-list-item.selected,.point-row.selected{background:#efebfb;border-color:#cfc5f2;color:var(--purple)}.point-row strong,.point-list-item strong{font-size:13px}.point-row small,.point-list-item small{color:#9b94a8}.editor-card{padding:13px;background:#f8f6fc;border:1px solid #e9e3f4;border-radius:8px;margin:17px 0}.editor-card .range-heading{font-size:9px}.coordinate-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:16px 0}.coordinate-fields label{display:block;font-size:9px;color:#9690a5}.coordinate-fields input{margin-top:7px}input[type=number]{padding:8px 5px!important;font-variant-numeric:tabular-nums}.danger-button{font-size:10px;color:#b17777;background:#f7ebed;min-height:32px;padding:0 9px;margin-top:4px}.danger-button:hover{background:#f2dfe2}.danger-button svg{height:13px;width:13px}.inline-icon{display:inline!important;vertical-align:middle;width:13px!important;height:13px!important;color:var(--purple)}.camera-presets{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:13px}.camera-presets button{font-size:10px;height:34px;border:1px solid #e8e3f0;border-radius:6px;color:#8e859f}.camera-presets button:hover,.camera-presets button.active{background:var(--purple-light);border-color:#e0d7f6;color:var(--purple)}.keyboard-tips{background:#faf9fc;padding:16px 13px;border-radius:8px;margin-top:27px}.keyboard-tips .eyebrow{font-size:7px;margin-bottom:15px}.keyboard-tips p{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:29px;font-size:9px;color:#a099ad}kbd{font-family:inherit;font-size:9px;display:inline-flex;align-items:center;justify-content:center;min-width:19px;min-height:18px;padding:2px 5px;border:1px solid #e8e2ef;border-bottom-width:2px;border-radius:4px;background:#fff;color:#9991aa}.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);max-width:calc(100vw - 32px);padding:13px 21px;border-radius:9px;background:#2f2c41;color:#fff;box-shadow:0 6px 25px #24283925;font-size:12px;z-index:100;line-height:1.5}dialog{width:550px;max-width:calc(100vw - 32px);max-height:calc(100vh - 40px);border:1px solid #e5e1ed;border-radius:16px;padding:29px;color:var(--ink);box-shadow:0 24px 90px #211b3a20}dialog::backdrop{background:#25213c50;backdrop-filter:blur(4px)}.dialog-heading{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}.dialog-heading h2{font-size:22px;letter-spacing:-.5px;margin-top:10px}.dialog-heading .icon-button{margin:-10px -10px 0 0;flex-shrink:0}.dialog-intro{font-size:12px;line-height:1.7;color:#97909e;margin-top:14px}.help-steps{padding:0;list-style:none;display:flex;flex-direction:column;gap:22px;margin:27px 0}.help-steps li{display:flex;gap:15px}.help-steps li>span{width:28px;height:28px;background:var(--purple-light);color:var(--purple);font-size:9px;border-radius:8px;display:grid;place-items:center;flex-shrink:0}.help-steps strong{font-size:12px;font-weight:600}.help-steps p{font-size:11px;color:#99919f;line-height:1.7;margin-top:7px}.help-note{font-size:10px;color:#a69388;line-height:1.7;background:#fbf6f0;padding:12px 14px;border-radius:8px}#exit-lesson{display:none;position:absolute;right:20px;top:20px;z-index:5}.lesson .app-header,.lesson .solid-sidebar,.lesson .inspector,.lesson .stage-heading,.lesson .stage-footer{display:none}.lesson .workspace{display:block;min-height:100dvh;max-width:none}.lesson .stage-column{padding:0;height:100dvh}.lesson .viewport{height:100dvh;min-height:0;border:none;border-radius:0}.lesson #exit-lesson{display:flex}.lesson .viewport-topline{right:250px}.lesson .canvas-tools{top:85px}.lesson .camera-tools{bottom:70px}
+@media(min-width:1600px){.workspace{grid-template-columns:242px minmax(500px,1fr) 326px}.solid-sidebar{padding-left:25px;padding-right:20px}.solid-card{gap:13px;padding-left:10px}.solid-card>span:not(.selection-dot){font-size:11px}.solid-card small{font-size:9px}.solid-diagram{width:53px;height:49px}.stage-column{padding:36px 36px 0}.stage-heading{padding-bottom:30px}.viewport{min-height:580px}.inspector{padding-left:26px;padding-right:26px}.header-caption{margin-left:40px}}
+@media(max-width:1190px){.app-header{gap:20px;padding:0 22px}.header-caption{display:none}.workspace{grid-template-columns:190px minmax(300px,1fr) 278px}.solid-sidebar{padding-left:11px;padding-right:10px}.solid-card{gap:6px}.solid-diagram{width:40px;height:41px}.solid-card>span:not(.selection-dot){font-size:9.5px}.solid-card small{font-size:8px}.stage-column{padding:27px 20px 0}.stage-heading h1{font-size:26px}.stage-heading .eyebrow{font-size:7px}.mode-badge{font-size:7px;padding:6px 8px}.inspector{padding-left:18px;padding-right:18px}.footer-note{display:none}.scene-label{font-size:7px}.viewport-bottomline{left:18px;right:18px}#tool-hint{font-size:8px}}
+@media(max-width:1010px){.workspace{grid-template-columns:158px minmax(280px,1fr) 260px}.solid-sidebar{padding:27px 8px 15px}.solid-card{padding:7px 4px;gap:4px;min-height:69px}.solid-diagram{width:34px;height:35px}.solid-card>span:not(.selection-dot){font-size:8.5px}.solid-card small{font-size:7px;line-height:1.5}.selection-dot{right:5px;top:8px}.sidebar-heading{padding-left:8px}.sidebar-heading h2{font-size:18px}.tip-card p{font-size:10px}.tip-number{font-size:8px}.stage-column{padding:27px 14px 0}.stage-heading{align-items:flex-start;flex-direction:column;gap:8px;padding-bottom:18px}.stage-heading .eyebrow{font-size:7px}.stage-heading h1{font-size:25px;margin-top:7px}.stage-heading p{font-size:9px}.mode-badge{margin:0}.viewport{min-height:475px}.inspector{padding-left:16px;padding-right:16px}.inspector-heading h2{font-size:15px}.tabs{margin-top:23px}.app-header{height:80px}.workspace{min-height:calc(100vh - 80px)}.brand-copy strong{font-size:23px}.brand-copy small{font-size:7px}.brand-mark{width:37px;height:37px}.header-actions{gap:4px}.header-divider{margin:0 3px}.quiet-button{padding:0 8px;font-size:11px}.lesson-button{margin-left:6px;padding:0 11px;font-size:11px}}
+@media(max-width:820px){.app-header{padding:0 17px;gap:15px;height:74px}.brand-copy small{display:none}.brand-copy strong{font-size:24px}.brand-mark{width:35px;height:35px}.brand{gap:9px}.header-actions{gap:2px}.quiet-button span{display:none}.quiet-button{width:33px;padding:0}.lesson-button span{display:none}.lesson-button{width:35px;height:35px;padding:0;margin-left:4px}.header-divider{display:none}.help-button{display:none}.workspace{grid-template-columns:minmax(320px,1fr) 265px;min-height:calc(100vh - 74px)}.solid-sidebar{grid-column:1 / -1;display:block;padding:13px 16px;border-right:0;border-bottom:1px solid var(--line);overflow:hidden}.sidebar-heading,.sidebar-bottom{display:none}.solid-list{flex-direction:row;gap:7px;overflow-x:auto;padding:2px 0 4px;scrollbar-width:thin}.solid-card{width:136px;flex-shrink:0;padding:6px;min-height:55px;gap:6px}.solid-card>span:not(.selection-dot){font-size:9px}.solid-card small{font-size:7px;margin-top:3px}.solid-diagram{width:33px;height:35px}.stage-column{padding:23px 17px 0}.stage-heading{flex-direction:row;align-items:center}.mode-badge{font-size:6px;padding:6px;white-space:normal;max-width:95px;line-height:1.6}.viewport{min-height:520px}.stage-heading .eyebrow{display:none}.stage-heading h1{margin-top:0}.inspector{padding-top:25px}.canvas-tools{left:12px}.camera-tools{right:12px}.viewport-topline{left:17px;right:17px}.viewport-bottomline{bottom:17px}.axis-caption{display:none}#tool-hint{max-width:100%;font-size:8px}.stage-footer{font-size:8px}}
+@media(max-width:620px){.app-header{height:65px;padding:0 14px}.brand-copy strong{font-size:22px}.brand-mark{width:32px;height:32px;border-radius:10px}.brand-mark svg{width:25px;height:25px}.header-actions .icon-button{width:30px;height:32px}.header-actions svg{height:16px;width:16px}.header-actions .quiet-button{width:30px}.lesson-button{height:32px;width:32px;border-radius:6px}.workspace{display:flex;flex-direction:column}.solid-sidebar{order:0;padding:11px 12px}.solid-card{width:130px;min-height:52px}.solid-card small{font-size:7px}.stage-column{order:1;padding:20px 13px 0}.stage-heading{padding-bottom:16px;gap:15px;align-items:flex-start}.stage-heading h1{font-size:25px}.stage-heading p{font-size:9px;margin-top:4px}.mode-badge{max-width:none;white-space:nowrap;margin-top:6px;font-size:7px;padding:6px 8px}.viewport{min-height:410px;height:58vh;max-height:570px;flex:auto}.viewport-topline{top:16px}.canvas-tools{top:47px;left:10px;padding:3px}.tool-button{height:30px;width:30px}.tool-button svg{height:16px;width:16px}.camera-tools{bottom:44px;right:10px;padding:3px}.viewport-bottomline{left:15px;right:15px;bottom:15px}#tool-hint{font-size:8px}.stage-footer{min-height:39px;padding-top:11px;padding-bottom:11px;font-size:8px}.inspector{order:2;border-left:0;border-top:1px solid var(--line);padding:23px 22px 0;margin-top:0}.inspector-heading{display:flex;align-items:center;justify-content:space-between}.inspector-heading h2{font-size:16px;margin:0}.inspector-heading .eyebrow{font-size:7px}.tabs{margin:19px 0 22px}.tab{height:36px;font-size:12px}.inspector-panel{padding-bottom:24px}.field-label,.range-heading,.toggle-row{font-size:12px}.field-description{font-size:11px}.full-width{font-size:12px;min-height:39px}.section-result{padding:18px}#section-preview{height:150px}.section-result h3{font-size:17px}.section-result p{font-size:10px}.result-heading .eyebrow{font-size:8px}.section-message{font-size:10px}.presets button{font-size:12px;min-height:37px}.toggle-row{min-height:39px}.section-divider{margin:23px 0}.range-endpoints{font-size:9px}.text-button{font-size:10px}.inspector-footer{height:45px;font-size:9px}.camera-presets button{font-size:12px;height:40px}.keyboard-tips p{font-size:11px;min-height:33px}.points-list button{font-size:12px}.panel-subheading h3,.form-title{font-size:14px}.coordinate-fields label{font-size:11px}select,input:not([type=range]):not([type=checkbox]):not([type=file]){font-size:13px;min-height:40px}.lesson .viewport-topline{right:auto}.lesson #exit-lesson{font-size:10px;min-height:33px;right:13px;top:13px}.lesson #exit-lesson svg{width:14px;height:14px}.lesson .viewport{max-height:none;height:100dvh}.lesson .canvas-tools{top:65px}dialog{padding:22px}.dialog-heading h2{font-size:20px}.help-steps{gap:19px}.help-steps strong{font-size:11px}.help-steps p{font-size:10px}.toast{bottom:20px;font-size:11px;padding:12px 16px}}
+.point-chip.filled{border-color:#d6cef1;background:#f0ebfc;font-family:Georgia,serif;font-style:italic;font-size:15px}.point-chip:not(.filled){font-family:var(--font);font-style:normal;font-size:9px;background:#faf9fc;border-style:dashed;color:#aaa1b8}.point-name{font-family:Georgia,serif;font-style:italic;font-size:15px;min-width:21px;color:var(--purple)}.point-coords{font-size:9px;color:#a39baa;white-space:nowrap;font-variant-numeric:tabular-nums}.point-tag{margin-left:auto;color:#a295b6;background:#f1edf7;border-radius:4px;padding:3px 5px;font-size:8px;white-space:nowrap}.empty-note{font-size:10px;color:#a89faf;line-height:1.7;padding:12px 10px;background:#faf8fc;border:1px dashed #e5dfed;border-radius:6px}.secondary-button.active{color:#fff;background:var(--purple);border-color:var(--purple)}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;scroll-behavior:auto!important}}
+/* Keep the classroom board in view; long controls scroll independently. */
+@media(min-width:821px){
+ .workspace{height:calc(100dvh - 88px);min-height:560px}
+ .stage-column{min-height:0}
+ .viewport{min-height:0}
+ .solid-sidebar,.inspector{overflow-y:auto;scrollbar-width:thin;scrollbar-color:#dbd8e8 transparent}
+ .solid-card>span:not(.selection-dot){font-size:11px}
+ .solid-card small{font-size:9px;color:#7d7d91}
+ .field-label,.range-heading,.toggle-row{font-size:12px;color:#676276}
+ .field-description{font-size:11px;color:#8a8498}
+ .full-width,.presets button{font-size:11px}
+ .section-result p{font-size:10px;color:#98847d}
+ .stage-heading p{font-size:11px;color:#82808d}
+ #tool-hint,.stage-footer{font-size:10px;color:#898494}
+ .tab{font-size:12px}
+}
+@media(min-width:821px) and (max-width:1010px){.workspace{height:calc(100dvh - 80px)}.solid-card>span:not(.selection-dot){font-size:10px}}
+.stage-heading>div{min-width:0}.stage-heading h1{overflow-wrap:anywhere}
+@media(max-width:620px){.stage-heading{flex-wrap:wrap}.stage-heading>div{flex-basis:100%}.mode-badge{margin-top:-4px}.help-button{display:grid}.brand-copy strong{font-size:20px}.header-actions{gap:0}}
+
+</style>
+  
+  
+</head>
+<body>
+  <svg class="svg-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <symbol id="i-cube" viewBox="0 0 24 24"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z M4 7.5l8 4.5 8-4.5M12 12v9"/></symbol>
+      <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9a2.5 2.5 0 0 1 4.8.9c0 1.6-2.4 1.9-2.4 3.6M12 17h.01"/></symbol>
+      <symbol id="i-save" viewBox="0 0 24 24"><path d="M5 3h12l4 4v14H3V3h2Zm2 0v6h9V3M7 21v-8h10v8"/></symbol>
+      <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7V5h7l2 3h9v12H3V7ZM3 10h18"/></symbol>
+      <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 16-5-5-7 8-3-3-3 3"/></symbol>
+      <symbol id="i-present" viewBox="0 0 24 24"><path d="M3 4h18M5 4v12h14V4M12 16v5M8 21l4-3 4 3M9 8h6M9 11h4"/></symbol>
+      <symbol id="i-rotate" viewBox="0 0 24 24"><path d="M4 10a8 8 0 0 1 13-4l3 3M20 4v5h-5M20 14A8 8 0 0 1 7 20l-3-3M4 22v-5h5"/></symbol>
+      <symbol id="i-point" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v4m0 12v4M2 12h4m12 0h4"/></symbol>
+      <symbol id="i-label" viewBox="0 0 24 24"><path d="m5 20 7-16 7 16M8 14h8"/></symbol>
+      <symbol id="i-undo" viewBox="0 0 24 24"><path d="M8 4 3 9l5 5M3 9h10a7 7 0 0 1 0 14"/></symbol>
+      <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-8h6v8"/></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+      <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+      <symbol id="i-reset" viewBox="0 0 24 24"><path d="M4 10a8 8 0 1 1 1 8M4 4v6h6"/></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+      <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+      <symbol id="i-mouse" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="6"/><path d="M12 6v4"/></symbol>
+      <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m8 4 8 8-8 8"/></symbol>
+      <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7m4-7v7"/></symbol>
+    </defs>
+  </svg>
+
+  <header class="app-header">
+    <a class="brand" href="#" aria-label="Сечение — главная">
+      <span class="brand-mark"><svg><use href="#i-cube"/></svg><span></span></span>
+      <span class="brand-copy"><strong>Сечение<span class="brand-dot">.</span></strong><small>СТЕРЕОМЕТРИЯ НАГЛЯДНО</small></span>
+    </a>
+    <div class="header-caption"><span class="status-dot"></span> Интерактивная мастерская</div>
+    <nav class="header-actions" aria-label="Действия со сценой">
+      <button type="button" id="help-button" class="icon-button help-button" title="Как пользоваться" aria-label="Как пользоваться"><svg><use href="#i-help"/></svg></button>
+      <span class="header-divider"></span>
+      <button type="button" id="save-scene" class="quiet-button" title="Сохранить сцену в JSON"><svg><use href="#i-save"/></svg><span>Сохранить</span></button>
+      <button type="button" id="load-scene" class="icon-button" title="Открыть сохранённую сцену" aria-label="Открыть сохранённую сцену"><svg><use href="#i-folder"/></svg></button>
+      <button type="button" id="export-image" class="quiet-button" title="Скачать изображение PNG"><svg><use href="#i-image"/></svg><span>PNG</span></button>
+      <button type="button" id="lesson-mode" class="primary-button lesson-button" aria-label="Режим урока"><svg><use href="#i-present"/></svg><span>Режим урока</span></button>
+      <input id="file-input" type="file" accept=".json,application/json" hidden>
+    </nav>
+  </header>
+
+  <main class="workspace">
+    <aside class="solid-sidebar" aria-label="Выбор фигуры">
+      <div class="sidebar-heading"><span class="eyebrow">БИБЛИОТЕКА</span><h2>Фигуры</h2><p>С чего начнём?</p></div>
+      <div id="solid-list" class="solid-list">
+        <button type="button" class="solid-card active" data-solid="cube" aria-pressed="true"><svg class="solid-diagram" viewBox="0 0 60 52" aria-hidden="true"><path class="solid-fill" d="m14 15 21-9 14 10v25l-21 8-14-10Z"/><path d="m14 15 21-9 14 10v25l-21 8-14-10V15Zm0 0 14 9 21-8M28 24v25"/><path class="hidden-edge" d="M35 6v25l14 10M35 31l-21 8"/></svg><span>Куб<small>6 квадратных граней</small></span><span class="selection-dot"></span></button>
+        <button type="button" class="solid-card" data-solid="cuboid" aria-pressed="false"><svg class="solid-diagram" viewBox="0 0 60 52" aria-hidden="true"><path class="solid-fill" d="m8 20 34-9 11 9v21l-34 9-11-9Z"/><path d="m8 20 34-9 11 9v21l-34 9-11-9V20Zm0 0 11 9 34-9M19 29v21"/><path class="hidden-edge" d="M42 11v21l11 9M42 32 8 41"/></svg><span>Параллелепипед<small>Прямоугольный</small></span><span class="selection-dot"></span></button>
+        <button type="button" class="solid-card" data-solid="triangular-prism" aria-pressed="false"><svg class="solid-diagram" viewBox="0 0 60 52" aria-hidden="true"><path class="solid-fill" d="m10 22 18-14 24 12v23L10 45Z"/><path d="m10 22 18-14 24 12-42 2v23l42-2V20M28 8v23"/><path class="hidden-edge" d="m10 45 18-14 24 12"/></svg><span>Треугольная призма<small>5 граней</small></span><span class="selection-dot"></span></button>
+        <button type="button" class="solid-card" data-solid="pyramid" aria-pressed="false"><svg class="solid-diagram" viewBox="0 0 60 52" aria-hidden="true"><path class="solid-fill" d="m30 5 24 32-24 12-24-12Z"/><path d="m30 5 24 32-24 12-24-12L30 5Zm0 0v44"/><path class="hidden-edge" d="m6 37 24-9 24 9M30 5v23"/></svg><span>Пирамида<small>Четырёхугольная</small></span><span class="selection-dot"></span></button>
+        <button type="button" class="solid-card" data-solid="tetrahedron" aria-pressed="false"><svg class="solid-diagram" viewBox="0 0 60 52" aria-hidden="true"><path class="solid-fill" d="m29 5 25 34-27 10-21-12Z"/><path d="m29 5 25 34-27 10-21-12L29 5Zm0 0-2 44"/><path class="hidden-edge" d="m6 37 48 2"/></svg><span>Тетраэдр<small>4 треугольные грани</small></span><span class="selection-dot"></span></button>
+        <button type="button" class="solid-card" data-solid="hexagonal-prism" aria-pressed="false"><svg class="solid-diagram" viewBox="0 0 60 52" aria-hidden="true"><path class="solid-fill" d="m9 15 12-9 22 3 10 10v23l-12 8-22-3L9 38Z"/><path d="m9 15 12-9 22 3 10 10-12 8-22-3-10-9v23l10 9 22 3 12-8V19M19 24v23m22-20v23"/><path class="hidden-edge" d="M21 6v23l22 3 10 10M9 38l12-9M43 9v23"/></svg><span>Шестиугольная призма<small>8 граней</small></span><span class="selection-dot"></span></button>
+      </div>
+      <div class="sidebar-bottom"><div class="tip-card"><span class="tip-number">01 — 02 — 03</span><p>Три точки.<br>Одна плоскость.<br><strong>Бесконечно много открытий.</strong></p></div><button type="button" id="reset-scene" class="quiet-button reset-scene"><svg><use href="#i-reset"/></svg>Начать заново</button></div>
+    </aside>
+
+    <section class="stage-column" aria-label="Трёхмерная сцена">
+      <div class="stage-heading"><div><div class="eyebrow">ПРОСТРАНСТВО ДЛЯ ОТКРЫТИЙ</div><h1 id="shape-title">Куб</h1><p id="shape-meta">8 вершин · 12 рёбер · 6 граней</p></div><span id="mode-badge" class="mode-badge"><span></span>Плоскость по 3 точкам</span></div>
+      <div id="viewport" class="viewport">
+        <canvas id="scene" aria-label="Интерактивная трёхмерная фигура. Перетаскивайте для вращения, используйте колесо для изменения масштаба." tabindex="0"></canvas>
+        <div class="viewport-topline"><span class="scene-label"><span></span>3D СЦЕНА</span><span class="scene-legend"><i></i>Сечение</span></div>
+        <div class="canvas-tools" role="toolbar" aria-label="Инструменты сцены">
+          <button type="button" data-tool="rotate" class="tool-button active" title="Вращение (1)" aria-label="Вращение" aria-pressed="true"><svg><use href="#i-rotate"/></svg></button>
+          <button type="button" data-tool="point" class="tool-button" title="Добавить точку на ребро (2)" aria-label="Добавить точку" aria-pressed="false"><svg><use href="#i-point"/></svg></button>
+          <button type="button" data-tool="label" class="tool-button" title="Изменить подпись точки (3)" aria-label="Изменить подпись" aria-pressed="false"><svg><use href="#i-label"/></svg></button>
+          <span class="tool-divider"></span>
+          <button type="button" id="undo" class="tool-button" title="Отменить действие (Ctrl+Z)" aria-label="Отменить действие"><svg><use href="#i-undo"/></svg></button>
+        </div>
+        <div class="camera-tools" role="toolbar" aria-label="Масштаб и камера"><button type="button" id="zoom-in" class="tool-button" title="Приблизить" aria-label="Приблизить"><svg><use href="#i-plus"/></svg></button><button type="button" id="zoom-out" class="tool-button" title="Отдалить" aria-label="Отдалить"><svg><use href="#i-minus"/></svg></button><span class="tool-divider"></span><button type="button" id="reset-camera" class="tool-button" title="Вернуть исходный ракурс" aria-label="Вернуть исходный ракурс"><svg><use href="#i-home"/></svg></button></div>
+        <div class="viewport-bottomline"><span id="tool-hint"><svg><use href="#i-mouse"/></svg>Потяните, чтобы повернуть фигуру</span><span class="axis-caption">x · y · z</span></div>
+        <button type="button" id="exit-lesson" class="primary-button"><svg><use href="#i-close"/></svg>Выйти из режима урока</button>
+      </div>
+      <div class="stage-footer"><span id="scene-footer" role="status">Выберите три точки, чтобы исследовать сечение</span><span class="footer-note">Математика становится видимой</span></div>
+    </section>
+
+    <aside class="inspector" aria-label="Настройки и построение">
+      <div class="inspector-heading"><span class="eyebrow">ВАША КОНСТРУКЦИЯ</span><h2>Исследуйте фигуру</h2></div>
+      <div class="tabs" role="tablist" aria-label="Панели инструментов"><button type="button" class="tab active" id="tab-section" data-tab="section" role="tab" aria-selected="true" aria-controls="panel-section">Сечение</button><button type="button" class="tab" id="tab-points" data-tab="points" role="tab" aria-selected="false" aria-controls="panel-points">Точки</button><button type="button" class="tab" id="tab-view" data-tab="view" role="tab" aria-selected="false" aria-controls="panel-view">Вид</button></div>
+      <section id="panel-section" class="inspector-panel" role="tabpanel" aria-labelledby="tab-section">
+        <label class="field-label" for="construction-mode">Способ построения</label><select id="construction-mode"><option value="points">Через три точки</option><option value="normal">По направлению</option></select>
+        <div id="point-construction"><p class="field-description">Выберите три точки на фигуре или добавьте свои</p><div id="plane-picks" class="plane-picks"><span class="point-chip">P</span><span class="point-chip">Q</span><span class="point-chip">R</span></div><button type="button" id="choose-plane" class="secondary-button full-width"><svg><use href="#i-point"/></svg>Выбрать 3 точки</button></div>
+        <div id="normal-construction" hidden><div class="range-heading"><label for="normal-azimuth">Поворот</label><output id="azimuth-value" for="normal-azimuth">45°</output></div><input type="range" id="normal-azimuth" min="0" max="360" value="45"><div class="range-heading"><label for="normal-elevation">Наклон</label><output id="elevation-value" for="normal-elevation">35°</output></div><input type="range" id="normal-elevation" min="-90" max="90" value="35"></div>
+        <div class="section-divider"></div>
+        <div class="range-heading"><label for="plane-offset">Сдвиг плоскости</label><output id="offset-value" for="plane-offset">0.00</output></div><input type="range" id="plane-offset" min="-2" max="2" step="0.01" value="0"><div class="range-endpoints"><span>−2</span><button type="button" id="reset-offset" class="text-button">В исходную плоскость</button><span>+2</span></div>
+        <div class="section-result"><div class="result-heading"><span class="eyebrow">ПОЛУЧЕННОЕ СЕЧЕНИЕ</span><span class="coral-dot"></span></div><canvas id="section-preview" width="500" height="240" aria-label="Плоское изображение полученного сечения"></canvas><h3 id="section-name">Треугольник</h3><p id="section-detail">3 вершины · 3 стороны</p></div>
+        <p id="section-message" class="section-message" role="status">Меняйте положение точек и наблюдайте за сечением.</p>
+        <div class="preset-block"><div class="field-label">Попробуйте готовый пример</div><div class="presets"><button type="button" data-preset="horizontal">Параллельно основанию<svg><use href="#i-chevron"/></svg></button><button type="button" data-preset="diagonal">Диагональное<svg><use href="#i-chevron"/></svg></button><button type="button" data-preset="hexagon">Шестиугольник<svg><use href="#i-chevron"/></svg></button></div></div>
+        <div class="section-divider"></div><label class="toggle-row"><span>Секущая плоскость</span><input id="show-plane" type="checkbox" checked><span class="toggle-track"></span></label><label class="toggle-row"><span>Заливка сечения</span><input id="show-section" type="checkbox" checked><span class="toggle-track"></span></label>
+      </section>
+
+      <section id="panel-points" class="inspector-panel" role="tabpanel" aria-labelledby="tab-points" hidden>
+        <div class="panel-subheading"><h3>Точки на фигуре</h3><button type="button" id="clear-points" class="text-button">Очистить</button></div><p class="field-description">Нажмите на точку, чтобы изменить её подпись и положение.</p><div id="points-list" class="points-list"></div>
+        <div id="selected-point-editor" class="editor-card" hidden><label class="field-label" for="selected-label">Подпись точки</label><input id="selected-label" maxlength="8" autocomplete="off"><div id="edge-editor"><div class="range-heading"><label for="edge-position">Положение на ребре</label><output id="edge-position-value" for="edge-position">50%</output></div><input id="edge-position" type="range" min="0" max="100" step="1" value="50"></div><div id="coordinates-editor" class="coordinate-fields"><label>X<input type="number" id="selected-x" min="-10" max="10" step="0.1"></label><label>Y<input type="number" id="selected-y" min="-10" max="10" step="0.1"></label><label>Z<input type="number" id="selected-z" min="-10" max="10" step="0.1"></label></div><button type="button" id="delete-point" class="danger-button"><svg><use href="#i-trash"/></svg>Удалить точку</button></div>
+        <div class="section-divider"></div><h3 class="form-title">Точка в пространстве</h3><p class="field-description">Задайте координаты или поставьте точку на ребре инструментом <svg class="inline-icon"><use href="#i-point"/></svg>.</p><form id="add-point-form"><label class="field-label" for="point-label">Подпись</label><input id="point-label" maxlength="8" placeholder="P" autocomplete="off"><div class="coordinate-fields"><label>X<input type="number" id="point-x" min="-10" max="10" step="0.1" value="0" required></label><label>Y<input type="number" id="point-y" min="-10" max="10" step="0.1" value="0" required></label><label>Z<input type="number" id="point-z" min="-10" max="10" step="0.1" value="0" required></label></div><button type="submit" class="secondary-button full-width"><svg><use href="#i-plus"/></svg>Добавить точку</button></form>
+      </section>
+
+      <section id="panel-view" class="inspector-panel" role="tabpanel" aria-labelledby="tab-view" hidden>
+        <h3 class="form-title">Отображение</h3><label class="toggle-row"><span>Подписи точек</span><input id="show-labels" type="checkbox" checked><span class="toggle-track"></span></label><label class="toggle-row"><span>Невидимые рёбра</span><input id="show-hidden" type="checkbox" checked><span class="toggle-track"></span></label><label class="toggle-row"><span>Сетка основания</span><input id="show-grid" type="checkbox" checked><span class="toggle-track"></span></label><label class="toggle-row"><span>Координатные оси</span><input id="show-axes" type="checkbox"><span class="toggle-track"></span></label><div class="section-divider"></div><div class="range-heading"><label for="face-opacity">Заливка граней</label><output id="opacity-value" for="face-opacity">12%</output></div><input id="face-opacity" type="range" min="0" max="55" value="12"><div class="section-divider"></div><h3 class="form-title">Ракурс</h3><div class="camera-presets"><button type="button" data-camera="iso" class="active">В перспективе</button><button type="button" data-camera="front">Спереди</button><button type="button" data-camera="top">Сверху</button><button type="button" data-camera="right">Справа</button></div><div class="keyboard-tips"><div class="eyebrow">БЫСТРЫЕ ДЕЙСТВИЯ</div><p><span>Вращать</span><kbd>1</kbd></p><p><span>Добавлять точки</span><kbd>2</kbd></p><p><span>Подписывать</span><kbd>3</kbd></p><p><span>Отменить</span><kbd>Ctrl Z</kbd></p><p><span>Масштаб</span><span>Колесо мыши</span></p></div>
+      </section>
+      <div class="inspector-footer"><svg><use href="#i-cube"/></svg><span>Создано для любопытства</span></div>
+    </aside>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <dialog id="help-dialog"><div class="dialog-heading"><div><span class="eyebrow">НЕБОЛЬШАЯ ПОДСКАЗКА</span><h2>Увидеть. Построить. Понять.</h2></div><button type="button" id="close-help" class="icon-button" aria-label="Закрыть подсказку"><svg><use href="#i-close"/></svg></button></div><p class="dialog-intro">Исследуйте объёмные фигуры вместе с классом — прямо в браузере.</p><ol class="help-steps"><li><span>01</span><div><strong>Выберите фигуру и удобный ракурс</strong><p>Перетаскивайте сцену, чтобы вращать фигуру. Колесо мыши и кнопки «+» / «−» изменяют масштаб.</p></div></li><li><span>02</span><div><strong>Добавьте и подпишите точки</strong><p>Инструмент «Точка» ставит точки на рёбрах. Во вкладке «Точки» можно указать координаты, изменить букву или передвинуть точку по ребру.</p></div></li><li><span>03</span><div><strong>Проведите секущую плоскость</strong><p>Нажмите «Выбрать 3 точки» и отметьте три точки на фигуре. Они зададут плоскость. Ползунок сдвигает её параллельно исходному положению.</p></div></li><li><span>04</span><div><strong>Покажите результат классу</strong><p>Режим урока разворачивает сцену. Сохраните изображение в PNG или всю конструкцию в JSON, чтобы продолжить позже.</p></div></li></ol><p class="help-note">Три точки должны быть различными и не лежать на одной прямой. Готовые примеры помогут начать исследование.</p></dialog>
+<script>
+(function (root, factory) {
+  'use strict';
+  var api = factory();
+  if (typeof module === 'object' && module.exports) module.exports = api;
+  if (root) root.Geometry3D = api;
+})(typeof globalThis !== 'undefined' ? globalThis : this, function () {
+  'use strict';
+
+  var EPS = 1e-9;
+  var add = function (a, b) { return [a[0] + b[0], a[1] + b[1], a[2] + b[2]]; };
+  var sub = function (a, b) { return [a[0] - b[0], a[1] - b[1], a[2] - b[2]]; };
+  var scale = function (a, k) { return [a[0] * k, a[1] * k, a[2] * k]; };
+  var dot = function (a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; };
+  var cross = function (a, b) { return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]]; };
+  var len = function (a) { return Math.hypot(a[0], a[1], a[2]); };
+  var normalize = function (a) { var n = len(a); return n > 0 ? scale(a, 1 / n) : [0, 0, 0]; };
+  var distance = function (a, b) { return len(sub(a, b)); };
+  var lerp = function (a, b, t) { return add(a, scale(sub(b, a), t)); };
+  var validPoint = function (p) { return Array.isArray(p) && p.length === 3 && p.every(Number.isFinite); };
+
+  function centroid(points) {
+    return points.length ? scale(points.reduce(add, [0, 0, 0]), 1 / points.length) : [0, 0, 0];
+  }
+
+  // Translation before the cross products preserves precision away from the origin.
+  function polygonAreaVector(points) {
+    if (points.length < 3) return [0, 0, 0];
+    var origin = points[0], v = [0, 0, 0];
+    for (var i = 1; i < points.length - 1; i++) {
+      v = add(v, cross(sub(points[i], origin), sub(points[i + 1], origin)));
+    }
+    return scale(v, 0.5);
+  }
+
+  function polygonNormal(points) { return normalize(polygonAreaVector(points)); }
+  function polygonArea(points) { return len(polygonAreaVector(points)); }
+  function polygonPerimeter(points) {
+    if (points.length < 2) return 0;
+    if (points.length === 2) return distance(points[0], points[1]);
+    var result = 0;
+    for (var i = 0; i < points.length; i++) result += distance(points[i], points[(i + 1) % points.length]);
+    return result;
+  }
+
+  function planeFromPoints(p1, p2, p3) {
+    if (![p1, p2, p3].every(validPoint)) return null;
+    var u = sub(p2, p1), v = sub(p3, p1), n = cross(u, v);
+    var magnitude = len(n), relativeScale = len(u) * len(v);
+    if (!relativeScale || magnitude <= 1e-10 * relativeScale) return null;
+    n = scale(n, 1 / magnitude);
+    return { normal: n, offset: dot(n, p1) };
+  }
+
+  function normalizePlane(plane) {
+    if (!plane || !validPoint(plane.normal) || !Number.isFinite(plane.offset)) return null;
+    var magnitude = len(plane.normal);
+    if (!magnitude) return null;
+    return { normal: scale(plane.normal, 1 / magnitude), offset: plane.offset / magnitude };
+  }
+
+  function planeBasis(normal) {
+    var n = normalize(normal);
+    var auxiliary = Math.abs(n[0]) < 0.8 ? [1, 0, 0] : [0, 1, 0];
+    var u = normalize(cross(auxiliary, n));
+    return { u: u, v: cross(n, u), normal: n };
+  }
+
+  var solids = [
+    { type: 'cube', name: 'Куб' },
+    { type: 'cuboid', name: 'Прямоугольный параллелепипед' },
+    { type: 'triangular-prism', name: 'Треугольная призма' },
+    { type: 'pyramid', name: 'Четырёхугольная пирамида' },
+    { type: 'tetrahedron', name: 'Тетраэдр' },
+    { type: 'hexagonal-prism', name: 'Шестиугольная призма' }
+  ];
+
+  function positive(value, fallback) { return Number.isFinite(value) && value > 0 ? value : fallback; }
+
+  function createSolid(type, dimensions) {
+    var d = dimensions || {}, coords, labels, faces, metadata = solids.find(function (s) { return s.type === type; });
+    if (!metadata) throw new Error('Неизвестная фигура: ' + type);
+    var width = positive(d.width, type === 'cuboid' ? 2.6 : 2);
+    var height = positive(d.height, type === 'cuboid' ? 1.6 : 2);
+    var depth = positive(d.depth, type === 'cuboid' ? 1.8 : 2);
+    var x = width / 2, y = height / 2, z = depth / 2;
+
+    if (type === 'cube' || type === 'cuboid') {
+      if (type === 'cube') x = y = z = positive(d.size, 2) / 2;
+      coords = [[-x, -y, z], [x, -y, z], [x, -y, -z], [-x, -y, -z], [-x, y, z], [x, y, z], [x, y, -z], [-x, y, -z]];
+      labels = ['A', 'B', 'C', 'D', 'A₁', 'B₁', 'C₁', 'D₁'];
+      faces = [[0, 1, 2, 3], [4, 5, 6, 7], [0, 1, 5, 4], [1, 2, 6, 5], [2, 3, 7, 6], [3, 0, 4, 7]];
+    } else if (type === 'pyramid') {
+      coords = [[-x, -y, z], [x, -y, z], [x, -y, -z], [-x, -y, -z], [0, y, 0]];
+      labels = ['A', 'B', 'C', 'D', 'S'];
+      faces = [[0, 1, 2, 3], [0, 1, 4], [1, 2, 4], [2, 3, 4], [3, 0, 4]];
+    } else if (type === 'tetrahedron') {
+      var edge = positive(d.size, 2), radius = edge / Math.sqrt(3), tetraHeight = edge * Math.sqrt(2 / 3);
+      coords = [[-edge / 2, -tetraHeight / 4, radius / 2], [edge / 2, -tetraHeight / 4, radius / 2], [0, -tetraHeight / 4, -radius], [0, 3 * tetraHeight / 4, 0]];
+      labels = ['A', 'B', 'C', 'D'];
+      faces = [[0, 1, 2], [0, 1, 3], [1, 2, 3], [2, 0, 3]];
+    } else {
+      var sides = type === 'triangular-prism' ? 3 : 6;
+      var radius = positive(d.radius, sides === 3 ? 1.2 : 1.15);
+      y = positive(d.height, 1.8) / 2;
+      coords = []; labels = []; faces = [];
+      for (var layer = 0; layer < 2; layer++) {
+        for (var i = 0; i < sides; i++) {
+          var angle = Math.PI / 2 + i * Math.PI * 2 / sides;
+          coords.push([-Math.cos(angle) * radius, layer ? y : -y, Math.sin(angle) * radius]);
+          labels.push(String.fromCharCode(65 + i) + (layer ? '₁' : ''));
+        }
+      }
+      faces.push(Array.from({ length: sides }, function (_, i) { return i; }));
+      faces.push(Array.from({ length: sides }, function (_, i) { return i + sides; }));
+      for (var j = 0; j < sides; j++) faces.push([j, (j + 1) % sides, (j + 1) % sides + sides, j + sides]);
+    }
+    var center = centroid(coords);
+    faces = faces.map(function (face) {
+      var points = face.map(function (i) { return coords[i]; });
+      return dot(polygonNormal(points), sub(centroid(points), center)) < 0 ? face.slice().reverse() : face.slice();
+    });
+    var seen = {}, edges = [];
+    faces.forEach(function (face) {
+      face.forEach(function (a, i) {
+        var b = face[(i + 1) % face.length], edge = a < b ? [a, b] : [b, a], key = edge.join(':');
+        if (!seen[key]) { seen[key] = true; edges.push(edge); }
+      });
+    });
+    edges.sort(function (a, b) { return a[0] - b[0] || a[1] - b[1]; });
+    return { type: type, name: metadata.name, vertices: coords.map(function (p, i) { return { id: 'v' + i, label: labels[i], p: p }; }), faces: faces, edges: edges };
+  }
+
+  function section(solid, plane) {
+    var normalized = normalizePlane(plane);
+    var empty = { points: [], area: 0, perimeter: 0, kind: 'empty' };
+    if (!normalized || !solid || !solid.vertices || !solid.vertices.length) return empty;
+    var vertices = solid.vertices.map(function (v) { return v.p || v; });
+    var extent = 0, origin = vertices[0];
+    vertices.forEach(function (p) { extent = Math.max(extent, distance(p, origin)); });
+    var tolerance = Math.max(extent, 1e-12) * EPS;
+    var signed = vertices.map(function (p) { return dot(normalized.normal, p) - normalized.offset; });
+    var intersections = [];
+    function include(point) {
+      if (!intersections.some(function (p) { return distance(p, point) <= tolerance; })) intersections.push(point.slice());
+    }
+    // Adding vertices explicitly includes the complete coincident edge or face.
+    vertices.forEach(function (p, i) { if (Math.abs(signed[i]) <= tolerance) include(p); });
+    solid.edges.forEach(function (edge) {
+      var a = edge[0], b = edge[1], da = signed[a], db = signed[b];
+      if ((da < -tolerance && db > tolerance) || (db < -tolerance && da > tolerance)) {
+        include(lerp(vertices[a], vertices[b], da / (da - db)));
+      }
+    });
+    if (!intersections.length) return empty;
+    var center = centroid(intersections), basis = planeBasis(normalized.normal);
+    var projected = intersections.map(function (p) { var relative = sub(p, center); return { p: p, x: dot(relative, basis.u), y: dot(relative, basis.v) }; });
+    projected.sort(function (a, b) { return a.x - b.x || a.y - b.y; });
+    function turn(a, b, c) { return (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x); }
+    // A convex hull removes redundant points along an edge, including degenerate cuts.
+    var areaTolerance = tolerance * Math.max(extent, 1e-12), lower = [], upper = [];
+    projected.forEach(function (p) {
+      while (lower.length >= 2 && turn(lower[lower.length - 2], lower[lower.length - 1], p) <= areaTolerance) lower.pop();
+      lower.push(p);
+    });
+    projected.slice().reverse().forEach(function (p) {
+      while (upper.length >= 2 && turn(upper[upper.length - 2], upper[upper.length - 1], p) <= areaTolerance) upper.pop();
+      upper.push(p);
+    });
+    var hull = projected.length === 1 ? projected : lower.slice(0, -1).concat(upper.slice(0, -1));
+    var points = hull.map(function (entry) { return entry.p; });
+    return {
+      points: points,
+      area: polygonArea(points),
+      perimeter: polygonPerimeter(points),
+      kind: points.length >= 3 ? 'polygon' : points.length === 2 ? 'segment' : 'point'
+    };
+  }
+
+  function sectionName(count) {
+    return ({ 0: 'Нет пересечения', 1: 'Точка касания', 2: 'Отрезок', 3: 'Треугольник', 4: 'Четырёхугольник', 5: 'Пятиугольник', 6: 'Шестиугольник', 7: 'Семиугольник', 8: 'Восьмиугольник' })[count] || count + '-угольник';
+  }
+
+  return {
+    EPS: EPS, add: add, sub: sub, scale: scale, dot: dot, cross: cross, len: len, normalize: normalize,
+    distance: distance, lerp: lerp, centroid: centroid, polygonNormal: polygonNormal, polygonArea: polygonArea,
+    polygonPerimeter: polygonPerimeter, planeFromPoints: planeFromPoints, normalizePlane: normalizePlane,
+    planeBasis: planeBasis, solids: solids, createSolid: createSolid, section: section, sectionName: sectionName
+  };
+});
+
+</script>
+<script>
+/* Сечение. Offline classroom geometry workbench. */
+(() => {
+  'use strict';
+  const G = window.Geometry3D;
+  const $ = id => document.getElementById(id);
+  const $$ = query => [...document.querySelectorAll(query)];
+  const canvas = $('scene'), ctx = canvas.getContext('2d');
+  const mini = $('section-preview'), mctx = mini.getContext('2d');
+  const TAU = Math.PI * 2;
+  const COLORS = { ink: '#283346', muted: '#87909c', edge: '#626d96', coral: '#e97760', purple: '#6a5ad5' };
+  const cameraDefault = () => ({ yaw: -.61, pitch: .39, zoom: 1 });
+  let state = {
+    solid: 'cube', points: [], labels: {}, picks: [], mode: 'points', offset: 0,
+    azimuth: 45, elevation: 35.26438968, camera: cameraDefault(),
+    view: { labels: true, hidden: true, grid: true, axes: false, plane: true, section: true, opacity: 12 }
+  };
+  let solid, section, plane, selected = null, tool = 'rotate', choosing = false, history = [];
+  let width = 800, height = 650, pixelRatio = 1, hovered = null, pointer = null, clickMoved = false;
+  let dragPoint = false, dirty = true, toastTimer, nextId = 1, lastSave = 0, loadNotice = '';
+  const pointers = new Map();
+  let pinchDistance = null;
+  const format = (n, digits = 2) => Number(n.toFixed(digits)).toLocaleString('ru-RU');
+  const clamp = (n,a,b) => Math.max(a,Math.min(b,n));
+  const clone = x => JSON.parse(JSON.stringify(x));
+  const same = (a,b) => G.len(G.sub(a,b)) < 1e-5;
+  const unit = v => G.normalize(v);
+  const lerp = (a,b,t) => G.add(a,G.scale(G.sub(b,a),t));
+  function announce(message) {
+    $('toast').textContent = message;
+    $('toast').hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { $('toast').hidden = true; }, 3800);
+  }
+  function remember() {
+    history.push(clone(state));
+    if (history.length > 60) history.shift();
+    $('undo').disabled = !history.length;
+  }
+  function updateSolid() { solid = G.createSolid(state.solid); }
+  function pointById(id) {
+    if (id?.startsWith('v:')) {
+      const v = solid.vertices.find(v => 'v:' + v.id === id);
+      return v ? { id, label: state.labels[v.id] || v.label, p: v.p, vertex: true } : null;
+    }
+    return state.points.find(p => p.id === id) || null;
+  }
+  function allPoints() { return [...solid.vertices.map(v => pointById('v:' + v.id)), ...state.points]; }
+  function labelFor(v) { return state.labels[v.id] || v.label; }
+  function edgeForPoint(p) {
+    for (let i=0;i<solid.edges.length;i++) {
+      const [a,b] = solid.edges[i], v = G.sub(solid.vertices[b].p,solid.vertices[a].p);
+      const t=G.dot(G.sub(p,solid.vertices[a].p),v)/G.dot(v,v);
+      if (t>=-1e-7 && t<=1+1e-7 && same(p,lerp(solid.vertices[a].p,solid.vertices[b].p,t))) return {a,b,t:clamp(t,0,1)};
+    }
+    return null;
+  }
+  function defaultPoints() {
+    state.points = [];
+    [[1,0,-1],[-1,1,0],[0,-1,1]].forEach((p,i)=>{
+      state.points.push({id:'p'+(i+1),label:nextLabel(),p,edge:edgeForPoint(p)});
+    });
+    state.picks = ['p1','p2','p3']; nextId = 4;
+  }
+  function calculate() {
+    if (state.mode === 'points') {
+      const pts = state.picks.map(pointById).filter(Boolean);
+      plane = pts.length === 3 ? G.planeFromPoints(...pts.map(p=>p.p)) : null;
+      if (plane) plane = {...plane,offset:plane.offset+state.offset};
+    } else {
+      const a=state.azimuth*Math.PI/180, e=state.elevation*Math.PI/180;
+      plane = {normal:[Math.cos(e)*Math.cos(a),Math.sin(e),Math.cos(e)*Math.sin(a)],offset:state.offset};
+    }
+    section = plane ? G.section(solid,plane) : null;
+  }
+  function refresh(options={}) {
+    calculate();
+    if (!options.skipUI) renderUI();
+    dirty = true;
+    if (!options.noSave) {
+      clearTimeout(lastSave);
+      lastSave=setTimeout(()=>{try { localStorage.setItem('sechenie-scene-v1',JSON.stringify({version:1,...state})); } catch {}},400);
+    }
+  }
+  function rotate(p) {
+    const {yaw,pitch}=state.camera, cy=Math.cos(yaw),sy=Math.sin(yaw),cp=Math.cos(pitch),sp=Math.sin(pitch);
+    const x=cy*p[0]+sy*p[2],z=-sy*p[0]+cy*p[2];
+    return [x,cp*p[1]-sp*z,sp*p[1]+cp*z];
+  }
+  function scale() { return Math.min(width*.29,height*.28)*state.camera.zoom; }
+  function fitPoints() {
+    const rotated=allPoints().map(p=>rotate(p.p));
+    const maxX=Math.max(1,...rotated.map(p=>Math.abs(p[0]))),maxY=Math.max(1,...rotated.map(p=>Math.abs(p[1])));
+    const base=Math.min(width*.29,height*.28);
+    const fit=Math.min((width*.5-34)/(base*maxX),(height*.44-36)/(base*maxY));
+    state.camera.zoom=clamp(Math.min(state.camera.zoom,fit),.08,2.4);
+  }
+  function project(p) { const q=rotate(p),s=scale(); return {x:width*.5+q[0]*s,y:height*.49-q[1]*s,z:q[2]}; }
+  function line(points,color,lineWidth=1,dash=[]) {
+    ctx.beginPath(); points.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));
+    ctx.strokeStyle=color;ctx.lineWidth=lineWidth;ctx.setLineDash(dash);ctx.stroke();ctx.setLineDash([]);
+  }
+  function polygon(points,fill,stroke,lineWidth=1) {
+    if(!points.length)return;
+    ctx.beginPath(); points.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.closePath();
+    if(fill){ctx.fillStyle=fill;ctx.fill();}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lineWidth;ctx.stroke();}
+  }
+  function basis(n) {
+    const u=unit(G.cross(n,Math.abs(n[1])<.9?[0,1,0]:[1,0,0]));
+    return {u,v:unit(G.cross(n,u))};
+  }
+  function visibility() {
+    return solid.faces.map(f=>{
+      const a=solid.vertices[f[0]].p,b=solid.vertices[f[1]].p,c=solid.vertices[f[2]].p;
+      return rotate(G.cross(G.sub(b,a),G.sub(c,a)))[2]>1e-7;
+    });
+  }
+  function isEdgeFront(a,b,front) { return solid.faces.some((f,i)=>front[i]&&f.includes(a)&&f.includes(b)); }
+  function drawLabel(label,p,color,custom=false) {
+    const fontSize=document.body.classList.contains('lesson')?23:15;
+    ctx.font = `${custom?'600':'500'} ${fontSize}px "Segoe UI", Arial, sans-serif`;
+    ctx.textAlign='center';ctx.textBaseline='middle';
+    const dx=p.x-width*.5,dy=p.y-height*.49,len=Math.hypot(dx,dy)||1;
+    let x=p.x+dx/len*(fontSize+4), y=p.y+dy/len*(fontSize+4);
+    x=clamp(x,15,width-15);y=clamp(y,20,height-20);
+    ctx.lineJoin='round';ctx.lineWidth=5;ctx.strokeStyle='rgba(250,250,248,.93)';ctx.strokeText(label,x,y);
+    ctx.fillStyle=color;ctx.fillText(label,x,y);
+  }
+  function draw() {
+    ctx.setTransform(pixelRatio,0,0,pixelRatio,0,0);ctx.clearRect(0,0,width,height);
+    ctx.fillStyle='#fafbf9';ctx.fillRect(0,0,width,height);
+    if(state.view.grid){
+      const gridStep=30;
+      ctx.fillStyle='#d8dedf';
+      for(let x=(width*.5)%gridStep;x<width;x+=gridStep)for(let y=(height*.49)%gridStep;y<height;y+=gridStep){ctx.beginPath();ctx.arc(x,y,.65,0,TAU);ctx.fill();}
+    }
+    const ps=solid.vertices.map(v=>project(v.p)), front=visibility();
+    if(state.view.axes) {
+      for (const [vec,color,label] of [[[1,0,0],'#c1716d','x'],[[0,1,0],'#69a18c','y'],[[0,0,1],'#6e8cbc','z']]) {
+        const a=project(G.scale(vec,-2.3)),b=project(G.scale(vec,2.3));
+        line([a,b],color,1,[4,5]);drawLabel(label,b,color);
+      }
+    }
+    const faces=solid.faces.map((f,i)=>({f,i,z:f.reduce((s,j)=>s+ps[j].z,0)/f.length})).sort((a,b)=>a.z-b.z);
+    for(const {f,i} of faces) polygon(f.map(j=>ps[j]),`rgba(119,125,166,${state.view.opacity/100*(front[i]?.7:.35)})`);
+    for(const [a,b] of solid.edges) if(!isEdgeFront(a,b,front)&&state.view.hidden) line([ps[a],ps[b]],'#a5aec4',1.4,[5,6]);
+    if(plane&&state.view.plane){
+      const {u,v}=basis(plane.normal),center=G.scale(plane.normal,plane.offset),size=1.65;
+      const corners=[[-1,-1],[1,-1],[1,1],[-1,1]].map(([a,b])=>project(G.add(center,G.add(G.scale(u,a*size),G.scale(v,b*size)))));
+      polygon(corners,'rgba(233,119,96,.065)','rgba(218,126,108,.3)',1);
+      const alphaPoint=project(G.add(center,G.add(G.scale(u,size*.9),G.scale(v,-size*.9))));
+      ctx.font='italic 20px Georgia,serif';ctx.fillStyle='#c98676';ctx.fillText('α',alphaPoint.x,alphaPoint.y);
+    }
+    if(section&&state.view.section){
+      const p=section.points.map(project);
+      if(section.kind==='polygon') polygon(p,'rgba(239,130,105,.29)',COLORS.coral,2.5);
+      else if(p.length>=2) line(p,COLORS.coral,3);
+      p.forEach(q=>{ctx.beginPath();ctx.arc(q.x,q.y,3.5,0,TAU);ctx.fillStyle=COLORS.coral;ctx.fill();});
+    }
+    for(const [a,b] of solid.edges) if(isEdgeFront(a,b,front)) line([ps[a],ps[b]],COLORS.edge,1.9);
+    if(hovered?.type==='edge'&&tool==='point'){
+      const [a,b]=solid.edges[hovered.index];line([ps[a],ps[b]],COLORS.purple,3.5);
+      const q=project(hovered.p);ctx.beginPath();ctx.arc(q.x,q.y,6,0,TAU);ctx.fillStyle=COLORS.purple;ctx.fill();
+    }
+    for(let i=0;i<solid.vertices.length;i++){
+      const v=solid.vertices[i],q=ps[i],id='v:'+v.id, pick=state.picks.includes(id);
+      if(pick||selected===id){ctx.beginPath();ctx.arc(q.x,q.y,8,0,TAU);ctx.fillStyle=pick?'rgba(233,119,96,.18)':'rgba(106,90,213,.18)';ctx.fill();}
+      ctx.beginPath();ctx.arc(q.x,q.y,pick?4.5:3,0,TAU);ctx.fillStyle=pick?COLORS.coral:COLORS.edge;ctx.fill();
+      if(state.view.labels)drawLabel(labelFor(v),q,COLORS.ink);
+    }
+    for(const point of state.points){
+      const q=project(point.p),active=state.picks.includes(point.id),isSelected=selected===point.id;
+      if(active||isSelected){ctx.beginPath();ctx.arc(q.x,q.y,isSelected?11:9,0,TAU);ctx.fillStyle=active?'rgba(233,119,96,.16)':'rgba(106,90,213,.17)';ctx.fill();}
+      ctx.beginPath();ctx.arc(q.x,q.y,5,0,TAU);ctx.fillStyle=active?COLORS.coral:COLORS.purple;ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.stroke();
+      if(state.view.labels)drawLabel(point.label,q,active?'#cb664f':COLORS.purple,true);
+    }
+    drawCompass();drawMini();
+  }
+  function drawCompass(){
+    const x=48,y=height-50;
+    ctx.font='11px "Segoe UI",sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+    for(const [v,c,name]of [[[1,0,0],'#c78278','x'],[[0,1,0],'#76a58c','y'],[[0,0,1],'#7b8db6','z']]){
+      const q=rotate(v);line([{x,y},{x:x+q[0]*24,y:y-q[1]*24}],c,1.5);
+      ctx.fillStyle=c;ctx.fillText(name,x+q[0]*33,y-q[1]*33);
+    }
+  }
+  function drawMini(){
+    const w=mini.clientWidth||252,h=mini.clientHeight||124,dpr=Math.min(devicePixelRatio||1,2);
+    if(mini.width!==Math.round(w*dpr)||mini.height!==Math.round(h*dpr)){mini.width=Math.round(w*dpr);mini.height=Math.round(h*dpr);}
+    mctx.setTransform(dpr,0,0,dpr,0,0);mctx.clearRect(0,0,w,h);
+    if(!section||!section.points.length||!plane){mctx.fillStyle='#a2a5af';mctx.font='12px "Segoe UI",sans-serif';mctx.textAlign='center';mctx.fillText('Здесь появится сечение',w/2,h/2);return;}
+    const {u,v}=basis(plane.normal),p=section.points.map(p=>[G.dot(p,u),G.dot(p,v)]);
+    const xs=p.map(p=>p[0]),ys=p.map(p=>p[1]),x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
+    const s=Math.min((w-44)/(x1-x0||1),(h-30)/(y1-y0||1));
+    const coords=p.map(([x,y])=>[(x-(x0+x1)/2)*s+w/2,(-y+(y0+y1)/2)*s+h/2]);
+    mctx.beginPath();coords.forEach(([x,y],i)=>i?mctx.lineTo(x,y):mctx.moveTo(x,y));
+    if(section.kind==='polygon'){mctx.closePath();mctx.fillStyle='#f9e6df';mctx.fill();}
+    mctx.strokeStyle=COLORS.coral;mctx.lineWidth=2;mctx.stroke();
+    coords.forEach(([x,y])=>{mctx.beginPath();mctx.arc(x,y,3,0,TAU);mctx.fillStyle=COLORS.coral;mctx.fill();});
+  }
+  function resize(){const r=canvas.getBoundingClientRect();width=Math.max(r.width,1);height=Math.max(r.height,1);pixelRatio=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(width*pixelRatio);canvas.height=Math.round(height*pixelRatio);dirty=true;}
+  function renderUI(){
+    $('shape-title').textContent=solid.name;
+    $('shape-meta').textContent=`${solid.vertices.length} вершин · ${solid.edges.length} рёбер · ${solid.faces.length} граней`;
+    $$('[data-solid]').forEach(b=>{b.classList.toggle('active',b.dataset.solid===state.solid);b.setAttribute('aria-pressed',String(b.dataset.solid===state.solid));});
+    $$('[data-tool]').forEach(b=>{b.classList.toggle('active',b.dataset.tool===tool);b.setAttribute('aria-pressed',String(b.dataset.tool===tool));});
+    $('construction-mode').value=state.mode;
+    $('point-construction').hidden=state.mode!=='points';$('normal-construction').hidden=state.mode!=='normal';
+    $('normal-azimuth').value=state.azimuth;$('normal-elevation').value=state.elevation;
+    $('azimuth-value').textContent=format(state.azimuth,0)+'°';$('elevation-value').textContent=format(state.elevation,0)+'°';
+    $('plane-offset').value=state.offset;$('offset-value').textContent=(state.offset>0?'+':'')+format(state.offset);
+    $('plane-offset').disabled=!plane;
+    $('reset-offset').disabled=Math.abs(state.offset)<1e-6;
+    $('mode-badge').textContent=state.mode==='normal'?'Плоскость по направлению':Math.abs(state.offset)>.001?'Параллельный перенос':'Плоскость по 3 точкам';
+    const picks=$('plane-picks');picks.replaceChildren();
+    for(let i=0;i<3;i++){
+      const p=pointById(state.picks[i]),b=document.createElement('button');b.type='button';b.className='point-chip'+(p?' filled':'');
+      b.textContent=p?p.label:'Точка '+(i+1);b.title=p?'Убрать '+p.label+' из плоскости':'Выбрать точку на фигуре';
+      b.addEventListener('click',()=>{if(p){remember();state.picks.splice(i,1);}choosing=true;tool='point';refresh();});picks.append(b);
+    }
+    $('choose-plane').classList.toggle('active',choosing);
+    $('choose-plane').textContent=choosing?`Выбор точек: ${state.picks.length} из 3`:'Выбрать 3 точки';
+    $('tool-hint').textContent=choosing?'Нажмите на вершину, точку или ребро · Esc — закончить':tool==='point'?'Нажмите на ребро, чтобы добавить точку · тяните точку вдоль ребра':tool==='label'?'Нажмите на вершину или точку, чтобы изменить её подпись':'Тяните, чтобы вращать · колесо — масштаб · нажмите на точку для настройки';
+    canvas.style.cursor=tool==='rotate'?'grab':tool==='point'?'crosshair':'text';
+    let message='',name='Сечение не задано',detail='Нужны три точки, не лежащие на одной прямой';
+    if(!plane){message=state.picks.length<3?`Выберите ещё ${3-state.picks.length} ${state.picks.length===2?'точку':'точки'} для плоскости.`:'Точки лежат на одной прямой. Выберите другую точку.';}
+    else if(section.kind==='empty'){name='Нет пересечения';detail='Плоскость проходит вне фигуры';message='Подвиньте плоскость ближе к фигуре.';}
+    else if(section.kind==='point'){name='Касание в точке';detail='Площадь равна нулю';message='Плоскость касается одной вершины.';}
+    else if(section.kind==='segment'){name='Отрезок';detail='Площадь равна нулю';message='Плоскость проходит через ребро.';}
+    else{const names={3:'Треугольник',4:'Четырёхугольник',5:'Пятиугольник',6:'Шестиугольник',7:'Семиугольник',8:'Восьмиугольник'};name=names[section.points.length]||`${section.points.length}-угольник`;detail=`S = ${format(section.area)} ед.² · P = ${format(section.perimeter)} ед.`;}
+    $('section-name').textContent=name;$('section-detail').textContent=detail;$('section-message').textContent=message;$('section-message').hidden=!message;
+    const pointWord=section?.points.length===1?'точка':section?.points.length>1&&section?.points.length<5?'точки':'точек';
+    $('scene-footer').textContent=plane?`${name} · ${section.points.length} ${pointWord} пересечения`:'Постройте плоскость по трём точкам';
+    for(const [id,key] of [['show-labels','labels'],['show-hidden','hidden'],['show-grid','grid'],['show-axes','axes'],['show-plane','plane'],['show-section','section']])$(id).checked=state.view[key];
+    $('face-opacity').value=state.view.opacity;$('opacity-value').textContent=state.view.opacity+'%';
+    $('undo').disabled=!history.length;
+    renderPoints();renderEditor();
+  }
+  function renderPoints(){
+    const list=$('points-list');list.replaceChildren();
+    if(!state.points.length){const note=document.createElement('p');note.className='empty-note';note.textContent='Добавьте точку на ребре фигуры или задайте координаты ниже.';list.append(note);}
+    state.points.forEach(p=>{
+      const row=document.createElement('button');row.type='button';row.className='point-row'+(p.id===selected?' selected':'');
+      const name=document.createElement('span');name.className='point-name';name.textContent=p.label;
+      const value=document.createElement('span');value.className='point-coords';value.textContent=p.p.map(x=>format(x,1)).join(' ; ');
+      const marker=document.createElement('span');marker.className='point-tag';marker.textContent=state.picks.includes(p.id)?'α':p.edge?'ребро':'xyz';
+      row.append(name,value,marker);row.addEventListener('click',()=>{if(choosing){remember();pickPlanePoint(p.id);}else selectPoint(p.id);});list.append(row);
+    });
+    $('clear-points').disabled=!state.points.length;
+  }
+  function renderEditor(){
+    const p=pointById(selected);$('selected-point-editor').hidden=!p;if(!p)return;
+    $('selected-label').value=p.label;$('edge-editor').hidden=!p.edge;
+    $('coordinates-editor').hidden=!!p.vertex||!!p.edge;
+    $('delete-point').hidden=!!p.vertex;
+    if(p.edge){$('edge-position').value=p.edge.t*100;$('edge-position-value').textContent=format(p.edge.t*100,0)+'%';}
+    for(const [i,k]of ['x','y','z'].entries())$('selected-'+k).value=Number(p.p[i].toFixed(4));
+  }
+  function setTab(tab){$$('[data-tab]').forEach(b=>{const active=b.dataset.tab===tab;b.classList.toggle('active',active);b.setAttribute('aria-selected',String(active));});for(const name of ['section','points','view'])$('panel-'+name).hidden=name!==tab;dirty=true;}
+  function selectPoint(id){selected=id;setTab('points');renderPoints();renderEditor();dirty=true;if(tool==='label'){setTimeout(()=>$('selected-label').focus(),0);}}
+  function nextLabel(){const used=new Set(allPoints().map(p=>p.label));for(const s of 'PQRSTUVWXYZKLMNEFGHIJ')if(!used.has(s))return s;let i=1;while(used.has('T'+i))i++;return 'T'+i;}
+  function addPoint(p,edge,label){
+    if(state.points.length>=80){announce('На одной сцене можно разместить до 80 точек.');return null;}
+    const duplicate=allPoints().find(q=>same(q.p,p));if(duplicate){announce('В этом месте уже есть точка '+duplicate.label);return duplicate.id;}
+    const point={id:'p'+nextId++,label:label||nextLabel(),p,edge:edge||null};state.points.push(point);return point.id;
+  }
+  function pickPlanePoint(id){
+    if(state.picks.includes(id)){announce('Эта точка уже выбрана.');return;}
+    if(state.picks.length>=3)state.picks=[];
+    state.picks.push(id);state.mode='points';state.offset=0;
+    if(state.picks.length===3){choosing=false;tool='rotate';calculate();announce(plane?'Плоскость построена по трём точкам.':'Три точки лежат на одной прямой. Замените одну из них.');}
+    setTab('section');refresh();
+  }
+  function nearest(x,y){
+    const candidates=allPoints().map(p=>({type:'point',point:p,d:Math.hypot(project(p.p).x-x,project(p.p).y-y)})).filter(p=>p.d<15).sort((a,b)=>a.d-b.d);
+    if(candidates.length)return candidates[0];
+    let best=null;
+    solid.edges.forEach(([a,b],index)=>{
+      const pa=project(solid.vertices[a].p),pb=project(solid.vertices[b].p),dx=pb.x-pa.x,dy=pb.y-pa.y,d2=dx*dx+dy*dy;
+      if(d2<1)return;const t=clamp(((x-pa.x)*dx+(y-pa.y)*dy)/d2,0,1),d=Math.hypot(x-pa.x-dx*t,y-pa.y-dy*t);
+      if(d<12&&(!best||d<best.d))best={type:'edge',index,d,p:lerp(solid.vertices[a].p,solid.vertices[b].p,t),edge:{a,b,t}};
+    });return best;
+  }
+  function local(event){const r=canvas.getBoundingClientRect();return {x:event.clientX-r.left,y:event.clientY-r.top};}
+  canvas.addEventListener('pointerdown',e=>{
+    if(e.button!==0)return;canvas.focus({preventScroll:true});
+    const p=local(e);pointers.set(e.pointerId,p);canvas.setPointerCapture(e.pointerId);
+    if(pointers.size===2){pinchDistance=Math.hypot(...Object.values([...pointers.values()][0]).map((n,i)=>n-Object.values([...pointers.values()][1])[i]));pointer=null;dragPoint=false;clickMoved=true;return;}
+    pointer={...p,id:e.pointerId,hit:nearest(p.x,p.y),yaw:state.camera.yaw,pitch:state.camera.pitch};clickMoved=false;dragPoint=false;
+    if(pointer.hit?.type==='point'&&pointer.hit.point.edge&&tool==='point'&&!choosing){selected=pointer.hit.point.id;remember();dragPoint=true;}
+    canvas.style.cursor=dragPoint?'ew-resize':'grabbing';
+  });
+  canvas.addEventListener('pointermove',e=>{
+    const p=local(e);
+    if(pointers.has(e.pointerId))pointers.set(e.pointerId,p);
+    if(pointers.size===2){const [a,b]=[...pointers.values()],d=Math.hypot(a.x-b.x,a.y-b.y);if(pinchDistance)state.camera.zoom=clamp(state.camera.zoom*d/pinchDistance,.08,2.4);pinchDistance=d;dirty=true;return;}
+    if(!pointer){const h=nearest(p.x,p.y);hovered=h;dirty=true;return;}
+    if(Math.hypot(p.x-pointer.x,p.y-pointer.y)>4)clickMoved=true;
+    if(dragPoint){
+      const point=pointById(selected),edge=point.edge,a=project(solid.vertices[edge.a].p),b=project(solid.vertices[edge.b].p),dx=b.x-a.x,dy=b.y-a.y,den=dx*dx+dy*dy;
+      if(den>1){edge.t=clamp(((p.x-a.x)*dx+(p.y-a.y)*dy)/den,0,1);point.p=lerp(solid.vertices[edge.a].p,solid.vertices[edge.b].p,edge.t);refresh();}
+    }else if(clickMoved){state.camera.yaw=pointer.yaw+(p.x-pointer.x)*.009;state.camera.pitch=clamp(pointer.pitch+(p.y-pointer.y)*.008,-Math.PI/2,Math.PI/2);dirty=true;}
+  });
+  function finishPointer(e){
+    pointers.delete(e.pointerId);if(pointers.size<2)pinchDistance=null;
+    if(pointer&&e.pointerId===pointer.id&&!clickMoved&&e.type!=='pointercancel'){
+      const p=local(e),hit=nearest(p.x,p.y);
+      if(hit?.type==='point'){if(choosing){remember();pickPlanePoint(hit.point.id);}else selectPoint(hit.point.id);}
+      else if(hit?.type==='edge'&&tool==='point'){remember();const id=addPoint(hit.p,hit.edge);if(id){if(choosing)pickPlanePoint(id);else{selectPoint(id);refresh();}}}
+      else if(tool==='point')announce('Нажмите на ребро. Для точки вне фигуры используйте координаты.');
+      else if(tool==='label')announce('Нажмите на вершину или добавленную точку.');
+    }
+    pointer=null;dragPoint=false;canvas.style.cursor=tool==='rotate'?'grab':tool==='point'?'crosshair':'text';
+    if(!pointers.size)refresh({skipUI:true});
+  }
+  canvas.addEventListener('pointerup',finishPointer);canvas.addEventListener('pointercancel',finishPointer);
+  canvas.addEventListener('pointerleave',()=>{hovered=null;dirty=true;});
+  canvas.addEventListener('wheel',e=>{e.preventDefault();state.camera.zoom=clamp(state.camera.zoom*Math.exp(-e.deltaY*.001),.08,2.4);refresh({skipUI:true});},{passive:false});
+  canvas.addEventListener('keydown',e=>{
+    const moves={ArrowLeft:[-.1,0],ArrowRight:[.1,0],ArrowUp:[0,-.1],ArrowDown:[0,.1]};
+    if(moves[e.key]){e.preventDefault();state.camera.yaw+=moves[e.key][0];state.camera.pitch=clamp(state.camera.pitch+moves[e.key][1],-Math.PI/2,Math.PI/2);refresh({skipUI:true});}
+  });
+  $$('[data-tab]').forEach(b=>b.addEventListener('click',()=>setTab(b.dataset.tab)));
+  $$('[data-solid]').forEach(b=>b.addEventListener('click',()=>{
+    if(state.solid===b.dataset.solid)return;remember();state.solid=b.dataset.solid;state.points=[];state.labels={};state.picks=[];state.offset=0;state.mode='normal';state.azimuth=0;state.elevation=89;state.camera=cameraDefault();selected=null;choosing=false;tool='rotate';updateSolid();applyPreset('horizontal',false);refresh();announce(solid.name+'. Выберите точки или готовое сечение.');
+  }));
+  $$('[data-tool]').forEach(b=>b.addEventListener('click',()=>{tool=b.dataset.tool;choosing=false;refresh();if(tool==='point')setTab('points');}));
+  $('choose-plane').addEventListener('click',()=>{if(choosing){choosing=false;tool='rotate';}else{remember();state.picks=[];state.mode='points';state.offset=0;choosing=true;tool='point';}refresh();});
+  $('construction-mode').addEventListener('change',e=>{remember();state.mode=e.target.value;state.offset=0;choosing=false;refresh();});
+  function bindRange(id,callback){let checkpoint=false;const el=$(id);el.addEventListener('pointerdown',()=>{remember();checkpoint=true;});el.addEventListener('input',e=>{if(!checkpoint){remember();checkpoint=true;}callback(Number(e.target.value));refresh();});el.addEventListener('change',()=>{checkpoint=false;});el.addEventListener('blur',()=>{checkpoint=false;});}
+  bindRange('plane-offset',v=>state.offset=v);
+  bindRange('normal-azimuth',v=>state.azimuth=v);
+  bindRange('normal-elevation',v=>state.elevation=v);
+  bindRange('face-opacity',v=>state.view.opacity=v);
+  bindRange('edge-position',v=>{const p=pointById(selected);if(p?.edge){p.edge.t=v/100;p.p=lerp(solid.vertices[p.edge.a].p,solid.vertices[p.edge.b].p,p.edge.t);}});
+  $('reset-offset').addEventListener('click',()=>{remember();state.offset=0;refresh();});
+  function applyPreset(name,record=true){
+    if(record)remember();state.offset=0;choosing=false;tool='rotate';state.mode='normal';
+    if(name==='horizontal'){state.azimuth=0;state.elevation=90;}
+    else if(name==='diagonal'){state.azimuth=45;state.elevation=0;}
+    else {state.azimuth=45;state.elevation=35.26438968;}
+    if(name==='hexagon'&&state.solid!=='cube'){state.solid='cube';state.points=[];state.picks=[];state.labels={};selected=null;updateSolid();}
+    if(name==='hexagon'&&state.points.length===0){defaultPoints();state.mode='points';}
+    setTab('section');refresh();
+  }
+  $$('[data-preset]').forEach(b=>b.addEventListener('click',()=>applyPreset(b.dataset.preset)));
+  for(const [id,key] of [['show-labels','labels'],['show-hidden','hidden'],['show-grid','grid'],['show-axes','axes'],['show-plane','plane'],['show-section','section']])$(id).addEventListener('change',e=>{remember();state.view[key]=e.target.checked;refresh();});
+  $$('[data-camera]').forEach(b=>b.addEventListener('click',()=>{const views={iso:[-.61,.39],front:[0,0],top:[0,Math.PI/2],right:[-Math.PI/2,0]};[state.camera.yaw,state.camera.pitch]=views[b.dataset.camera];refresh({skipUI:true});}));
+  $('reset-camera').addEventListener('click',()=>{state.camera=cameraDefault();refresh({skipUI:true});});
+  $('zoom-in').addEventListener('click',()=>{state.camera.zoom=clamp(state.camera.zoom*1.15,.08,2.4);refresh({skipUI:true});});
+  $('zoom-out').addEventListener('click',()=>{state.camera.zoom=clamp(state.camera.zoom/1.15,.08,2.4);refresh({skipUI:true});});
+  $('undo').addEventListener('click',()=>{if(!history.length)return;state=history.pop();updateSolid();selected=null;choosing=false;tool='rotate';nextId=Math.max(0,...state.points.map(p=>Number(p.id.slice(1))||0))+1;refresh();announce('Последнее действие отменено.');});
+  $('reset-scene').addEventListener('click',()=>{remember();state.solid='cube';state.labels={};state.offset=0;state.mode='points';state.camera=cameraDefault();selected=null;choosing=false;tool='rotate';updateSolid();defaultPoints();setTab('section');refresh();announce('Открыт начальный пример. Предыдущую сцену можно вернуть кнопкой отмены.');});
+  $('clear-points').addEventListener('click',()=>{remember();state.points=[];state.picks=state.picks.filter(id=>id.startsWith('v:'));selected=null;refresh();});
+  function uniqueLabel(label,id){return !allPoints().some(p=>p.id!==id&&p.label===label);}
+  $('add-point-form').addEventListener('submit',e=>{
+    e.preventDefault();const label=$('point-label').value.trim()||nextLabel(),p=['x','y','z'].map(k=>Number($('point-'+k).value));
+    if(p.some(x=>!Number.isFinite(x)||Math.abs(x)>10)){announce('Координаты должны быть числами от −10 до 10.');return;}
+    if(!uniqueLabel(label,null)){announce('Такая подпись уже используется.');return;}
+    remember();const id=addPoint(p,edgeForPoint(p),label);if(id){selectPoint(id);fitPoints();$('point-label').value='';refresh();announce('Точка добавлена. Её можно выбрать для построения сечения.');}
+  });
+  $('selected-label').addEventListener('change',e=>{
+    const p=pointById(selected),label=e.target.value.trim();if(!p)return;
+    if(!label||!uniqueLabel(label,p.id)){announce('Задайте непустую уникальную подпись.');renderEditor();return;}
+    remember();if(p.vertex)state.labels[p.id.slice(2)]=label;else p.label=label;refresh();
+  });
+  for(const [index,key]of ['x','y','z'].entries())$('selected-'+key).addEventListener('change',e=>{
+    const p=pointById(selected),v=Number(e.target.value);if(!p||p.vertex||p.edge)return;
+    if(!Number.isFinite(v)||Math.abs(v)>10){announce('Координата должна быть от −10 до 10.');renderEditor();return;}remember();p.p[index]=v;fitPoints();refresh();
+  });
+  $('delete-point').addEventListener('click',()=>{const p=pointById(selected);if(!p||p.vertex)return;remember();state.points=state.points.filter(p=>p.id!==selected);state.picks=state.picks.filter(id=>id!==selected);selected=null;refresh();});
+  function download(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);}
+  $('save-scene').addEventListener('click',()=>{download(new Blob([JSON.stringify({version:1,...state},null,2)],{type:'application/json'}),'sechenie-scene.json');announce('Сцена сохранена. Её можно открыть кнопкой «Загрузить».');});
+  $('load-scene').addEventListener('click',()=>$('file-input').click());
+  function validateScene(data){
+    if(!data||data.version!==1)throw Error('Неизвестный формат сцены.');
+    const types=['cube','cuboid','triangular-prism','pyramid','tetrahedron','hexagonal-prism'];
+    if(!types.includes(data.solid))throw Error('Неизвестная фигура.');
+    const s=G.createSolid(data.solid),finite=(n,a,b)=>typeof n==='number'&&Number.isFinite(n)&&n>=a&&n<=b;
+    const vector=p=>Array.isArray(p)&&p.length===3&&p.every(n=>finite(n,-10,10));
+    const label=t=>typeof t==='string'&&t.trim().length>0&&t.length<=8;
+    if(!Array.isArray(data.points)||data.points.length>80)throw Error('Некорректный список точек.');
+    const ids=new Set(s.vertices.map(v=>'v:'+v.id));const points=data.points.map(p=>{
+      if(!p||typeof p.id!=='string'||!/^p[1-9]\d{0,6}$/.test(p.id)||ids.has(p.id)||!vector(p.p)||!label(p.label))throw Error('Некорректная точка.');
+      ids.add(p.id);let edge=null;
+      if(p.edge){const {a,b,t}=p.edge;if(!Number.isInteger(a)||!Number.isInteger(b)||!s.edges.some(e=>(e[0]===a&&e[1]===b)||(e[0]===b&&e[1]===a))||!finite(t,0,1))throw Error('Некорректная привязка к ребру.');edge={a,b,t};}
+      return {id:p.id,label:p.label,p:edge?lerp(s.vertices[edge.a].p,s.vertices[edge.b].p,edge.t):[...p.p],edge};
+    });
+    if(!Array.isArray(data.picks)||data.picks.length>3||data.picks.some(id=>!ids.has(id))||new Set(data.picks).size!==data.picks.length)throw Error('Некорректные точки плоскости.');
+    if(!['points','normal'].includes(data.mode)||!finite(data.offset,-2,2)||!finite(data.azimuth,0,360)||!finite(data.elevation,-90,90))throw Error('Некорректная плоскость.');
+    if(!data.camera||!finite(data.camera.yaw,-1e6,1e6)||!finite(data.camera.pitch,-Math.PI/2,Math.PI/2)||!finite(data.camera.zoom,.08,2.4))throw Error('Некорректный ракурс.');
+    if(!data.view||!finite(data.view.opacity,0,55))throw Error('Некорректные настройки вида.');
+    const view={opacity:data.view.opacity};for(const k of ['labels','hidden','grid','axes','plane','section']){if(typeof data.view[k]!=='boolean')throw Error('Некорректные настройки вида.');view[k]=data.view[k];}
+    const labels={};if(data.labels&&typeof data.labels==='object')for(const v of s.vertices){if(data.labels[v.id]!==undefined){if(!label(data.labels[v.id]))throw Error('Некорректная подпись.');labels[v.id]=data.labels[v.id];}}
+    const names=[...s.vertices.map(v=>labels[v.id]||v.label),...points.map(p=>p.label)];if(new Set(names).size!==names.length)throw Error('Подписи точек должны различаться.');
+    return {solid:data.solid,points,labels,picks:[...data.picks],mode:data.mode,offset:data.offset,azimuth:data.azimuth,elevation:data.elevation,camera:{...data.camera},view};
+  }
+  $('file-input').addEventListener('change',async e=>{
+    const file=e.target.files[0];if(!file)return;
+    try{if(file.size>250000)throw Error('Слишком большой файл сцены.');const loaded=validateScene(JSON.parse(await file.text()));remember();state=loaded;updateSolid();selected=null;choosing=false;tool='rotate';nextId=Math.max(0,...state.points.map(p=>Number(p.id.slice(1))||0))+1;refresh();announce('Сцена загружена.');}catch(error){announce('Не удалось открыть сцену: '+(error instanceof SyntaxError?'проверьте JSON-файл.':error.message));}e.target.value='';
+  });
+  $('export-image').addEventListener('click',()=>{
+    draw();const out=document.createElement('canvas'),s=2;out.width=width*s;out.height=(height+60)*s;const c=out.getContext('2d');c.fillStyle='#fafbf9';c.fillRect(0,0,out.width,out.height);c.drawImage(canvas,0,0,width*s,height*s);c.scale(s,s);c.font='600 15px "Segoe UI",sans-serif';c.fillStyle=COLORS.ink;c.fillText(solid.name+' · '+$('section-name').textContent,28,height+27);c.font='12px "Segoe UI",sans-serif';c.fillStyle='#7a8190';c.fillText('Сечение / Стереометрия наглядно',28,height+46);out.toBlob(blob=>{if(blob)download(blob,'sechenie.png');},'image/png');announce('Изображение сохранено в PNG.');
+  });
+  function lesson(active){document.body.classList.toggle('lesson',active);$('lesson-mode').setAttribute('aria-pressed',String(active));requestAnimationFrame(resize);if(active)announce('Режим урока · Esc — вернуться к инструментам');}
+  $('lesson-mode').addEventListener('click',()=>lesson(!document.body.classList.contains('lesson')));
+  $('exit-lesson').addEventListener('click',()=>lesson(false));
+  $('help-button').addEventListener('click',()=>$('help-dialog').showModal());$('close-help').addEventListener('click',()=>$('help-dialog').close());
+  $('help-dialog').addEventListener('click',e=>{if(e.target===$('help-dialog'))$('help-dialog').close();});
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){choosing=false;tool='rotate';lesson(false);refresh();}
+    if(['INPUT','SELECT','TEXTAREA'].includes(e.target.tagName)||$('help-dialog').open)return;
+    if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();$('undo').click();}
+    if(e.key==='1'){document.querySelector('[data-tool="rotate"]').click();}
+    if(e.key==='2'){document.querySelector('[data-tool="point"]').click();}
+    if(e.key==='3'){document.querySelector('[data-tool="label"]').click();}
+    if(e.key.toLowerCase()==='r')$('reset-camera').click();
+  });
+  updateSolid();defaultPoints();
+  try{const saved=localStorage.getItem('sechenie-scene-v1');if(saved){state=validateScene(JSON.parse(saved));updateSolid();nextId=Math.max(0,...state.points.map(p=>Number(p.id.slice(1))||0))+1;loadNotice='Последняя сцена восстановлена.';}}catch{}
+  new ResizeObserver(resize).observe($('viewport'));resize();refresh({noSave:true});
+  requestAnimationFrame(function frame(){if(dirty){draw();dirty=false;}requestAnimationFrame(frame);});
+  if(loadNotice)announce(loadNotice);
+  // Read-only state snapshots for diagnostics; mutations stay in UI handlers.
+  window.Stereometry={snapshot:()=>clone({state,plane,section}),validateScene};
+})();
+
+</script>
+<script>
+
+window.addEventListener('DOMContentLoaded', function () {
+  const tg = window.Telegram && window.Telegram.WebApp;
+  if (!tg || tg.platform === 'unknown') return;
+  tg.ready();
+  tg.expand();
+  if (tg.isVersionAtLeast('7.7') && typeof tg.disableVerticalSwipes === 'function') {
+    tg.disableVerticalSwipes();
+  }
+  if (tg.isVersionAtLeast('6.9')) tg.setHeaderColor('#ffffff');
+  if (tg.isVersionAtLeast('6.1')) tg.setBackgroundColor('#f5f5f2');
+}, { once: true });
+
+</script>
+</body>
+</html>
